@@ -1,8 +1,10 @@
 # El Panóptico
 
-Recorrido interactivo en 3D por el Panóptico de Jeremy Bentham para presentar el utilitarismo (Claves del Pensamiento, UNIS).
+Recorrido interactivo en 3D por el Panóptico de Jeremy Bentham para presentar el utilitarismo (Claves del Pensamiento, UNIS). Pensado para iPad en vertical.
 
-Abrir en el iPad: https://mynitorba.github.io/panoptico-utilitarismo/
+Abrir: https://mynitorba.github.io/panoptico-utilitarismo/
 
-- Todo está en `index.html` (Three.js desde cdnjs, sonido generado con Web Audio).
+- En el iPad: Safari → Compartir → «Agregar a pantalla de inicio» y abrirlo desde el ícono (pantalla completa).
+- Todo el código está en `index.html` (Three.js desde cdnjs, sonido generado con Web Audio).
+- Las imágenes de `img/` vienen de Wikimedia Commons (dominio público, CC0 o CC BY 4.0); los créditos están en la pantalla final.
 - Necesita internet para cargar el motor 3D.
