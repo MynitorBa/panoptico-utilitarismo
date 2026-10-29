@@ -106,10 +106,10 @@ img{max-width:100%;display:block}
 #hud.focus #btnFinal{opacity:0;pointer-events:none}
 
 /* card sheet */
-#sheet{position:fixed;z-index:8;left:0;right:0;bottom:0;height:56%;display:flex;flex-direction:column;
+#sheet{position:fixed;z-index:8;left:50%;bottom:0;width:var(--sheet-w,64%);min-width:300px;height:56%;display:flex;flex-direction:column;
   padding:0 max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));
-  transform:translateY(108%);transition:transform .85s cubic-bezier(.2,.8,.2,1);pointer-events:none}
-#sheet.show{transform:none;pointer-events:auto}
+  transform:translate(-50%,108%);transition:transform .85s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+#sheet.show{transform:translate(-50%,0);pointer-events:auto}
 .sh{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-bottom:0;padding:10px 10px 10px 16px}
 .sh-r{font-family:var(--f-display);font-size:2rem;color:var(--sodium);line-height:1;min-width:1.4em}
 .sh-t{flex:1;min-width:0}
@@ -189,7 +189,7 @@ img{max-width:100%;display:block}
 .tl b{font-family:var(--f-display);font-weight:400;font-size:clamp(1.3rem,3.2vw,1.8rem);color:var(--sodium);min-width:3em;font-variant-numeric:tabular-nums}
 .tl span{font-size:clamp(1.05rem,2.3vw,1.3rem)}
 /* flips */
-.flips{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:20px;height:100%;align-content:center}
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 18px;height:100%;align-content:center}
 .flip{position:relative;aspect-ratio:3/4;border:0;padding:0;background:none;cursor:pointer;perspective:800px}
 .flip>span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .8s cubic-bezier(.3,1.3,.5,1);border:1px solid rgba(233,180,92,.35)}
 .f-front{background:repeating-linear-gradient(90deg,#14171b 0 12%,#1e1a14 12% 22%);}
@@ -293,8 +293,9 @@ img{max-width:100%;display:block}
 
 /* landscape: dock right */
 @media (orientation:landscape) and (min-width:900px){
-  #sheet{left:auto;top:0;width:min(500px,44vw);height:auto;padding:calc(76px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) 0;transform:translateX(110%)}
+  #sheet{left:auto;right:0;min-width:0;top:0;width:min(500px,44vw);height:auto;padding:calc(76px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) 0;transform:translateX(110%)}
   #sheet.show{transform:none}
+  #sheet{width:min(500px,44vw)}
   .flips{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:600px){
@@ -597,6 +598,8 @@ const SFX={
 };
 
 /* ================= UI BASICS ================= */
+// ?ancho=55 sets the card panel width (percent of the screen) so it fits the door opening.
+{const a=+new URLSearchParams(location.search).get('ancho');if(a>=30&&a<=100)document.documentElement.style.setProperty('--sheet-w',a+'%');}
 function noiseCanvas(size,alpha){const c=document.createElement('canvas');c.width=c.height=size;const g=c.getContext('2d');const d=g.createImageData(size,size);for(let i=0;i<d.data.length;i+=4){const v=Math.random()<.5?0:255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.random()*alpha;}g.putImageData(d,0,0);return c;}
 document.documentElement.style.setProperty('--grain',`url(${noiseCanvas(200,90).toDataURL()})`);
 {const s=$('#stLogo');let h='<circle class="ring" cx="100" cy="100" r="92"/><circle class="ring" cx="100" cy="100" r="56"/>';for(let i=0;i<40;i++){const a=i/40*TAU,c=Math.cos(a),n=Math.sin(a);h+=`<line class="tick" x1="${100+c*62}" y1="${100+n*62}" x2="${100+c*88}" y2="${100+n*88}"/>`;}h+='<path class="sweep" d="M100 100L192 88A92 92 0 0 1 192 112Z" fill="rgba(233,180,92,.35)"/><circle class="tower" cx="100" cy="100" r="16"/>';s.innerHTML=h;}
