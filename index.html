@@ -208,6 +208,7 @@ img{max-width:100%;display:block}
 @keyframes bar{to{width:var(--v)}}
 /* who */
 .who{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px;height:100%}
+.who.four{grid-template-columns:repeat(2,1fr)}
 .who-t{position:relative;border:0;padding:0;overflow:hidden;cursor:pointer;background:#000;min-height:0}
 .who-t img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;filter:sepia(.4) brightness(.7);transition:transform .5s,filter .5s}
 .who-t:active img{transform:scale(1.05);filter:sepia(.2) brightness(.95)}
@@ -485,6 +486,8 @@ const PEOPLE=[
  {name:'Mujer',img:'harriet.jpg',score:15,line:'Mill pide tu voto en 1867. Pierde. Lo lograrás en 1918.'},
  {name:'Legislador',img:'commons.jpg',score:60,line:'Tienes la calculadora. Tú decides quién entra en la suma.'}
 ];
+// The script only mentions these four; ?completo shows all six.
+if(!/completo/.test(location.search))['Preso','Legislador'].forEach(n=>PEOPLE.splice(PEOPLE.findIndex(p=>p.name===n),1));
 const RULES=[['crowd','La mayor felicidad para el mayor número'],['target','Solo importan las consecuencias'],['scale','Placer y dolor mandan'],['equal','Cada uno cuenta por uno'],['bars','La felicidad se puede calcular']];
 
 const SECTIONS=[
@@ -501,7 +504,7 @@ const SECTIONS=[
   card({img:'mill.jpg',imgCls:'top',alt:'John Stuart Mill',kick:'Mill, 1863',h:'«Mejor Sócrates insatisfecho que un tonto satisfecho»',p:'La calidad del placer también cuenta.'})
  ]},
  {r:'III',short:'Vivir aquí',title:'Si te tocara vivir aquí',cards:[
-  card({viz:`<div class="who">${PEOPLE.map((p,i)=>`<button class="who-t" type="button" data-act="who" data-k="${i}"><img src="${IMG+p.img}" alt="" decoding="async"><span>${p.name}</span></button>`).join('')}</div>`,kick:'Elige quién eres',h:'¿Cuánto vale tu felicidad?'}),
+  card({viz:`<div class="who${PEOPLE.length===4?' four':''}">${PEOPLE.map((p,i)=>`<button class="who-t" type="button" data-act="who" data-k="${i}"><img src="${IMG+p.img}" alt="" decoding="async"><span>${p.name}</span></button>`).join('')}</div>`,kick:'Elige quién eres',h:'¿Cuánto vale tu felicidad?'}),
   card({img:'commons.jpg',alt:'Cámara de los Comunes, 1833',cap:'Cámara de los Comunes · 1833',kick:'La pregunta incómoda',h:'¿Quién hace la cuenta?',p:'Hombres ricos, ingleses y con poder.'})
  ]},
  {r:'IV',short:'Lo que nadie te dice',title:'Lo que nadie te dice',cards:[
