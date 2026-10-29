@@ -523,6 +523,10 @@ const SECTIONS=[
  ]}
 ];
 
+// The 5-minute presentation shows only the cards used in the script; add ?completo to the URL for every card.
+const SHORT=[[0,1,3],[0],[0],[0,1,2,6],[0,3,4]];
+if(!/completo/.test(location.search))SECTIONS.forEach((s,k)=>{s.cards=SHORT[k].map(i=>s.cards[i]);});
+
 /* ================= AUDIO ================= */
 const SFX={
  ctx:null,on:true,tension:.15,
